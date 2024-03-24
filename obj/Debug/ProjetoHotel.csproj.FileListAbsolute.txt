@@ -1,0 +1,14 @@
+C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\bin\Debug\ProjetoHotel.exe.config
+C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\bin\Debug\ProjetoHotel.exe
+C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\bin\Debug\ProjetoHotel.pdb
+C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\obj\Debug\ProjetoHotel.csproj.AssemblyReference.cache
+C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\obj\Debug\ProjetoHotel.formularioLogin.resources
+C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\obj\Debug\ProjetoHotel.Properties.Resources.resources
+C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\obj\Debug\ProjetoHotel.csproj.GenerateResource.cache
+C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\obj\Debug\ProjetoHotel.csproj.CoreCompileInputs.cache
+C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\obj\Debug\ProjetoHotel.exe
+C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\obj\Debug\ProjetoHotel.pdb
+C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\obj\Debug\ProjetoHotel.formularioMenu.resources
+C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\obj\Debug\ProjetoHotel.Cadastros.formularioFuncionarios.resources
+C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\obj\Debug\ProjetoHotel.Cadastros.formularioCargo.resources
+C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\obj\Debug\ProjetoHotel.Produtos.formularioProdutos.resources
