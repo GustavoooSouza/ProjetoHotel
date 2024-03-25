@@ -100,15 +100,18 @@
             // 
             // grid
             // 
+            this.grid.AllowUserToAddRows = false;
+            this.grid.AllowUserToDeleteRows = false;
             this.grid.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid.GridColor = System.Drawing.SystemColors.ButtonHighlight;
             this.grid.Location = new System.Drawing.Point(13, 50);
             this.grid.Name = "grid";
+            this.grid.ReadOnly = true;
             this.grid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grid.Size = new System.Drawing.Size(500, 150);
             this.grid.TabIndex = 72;
-            this.grid.Click += new System.EventHandler(this.grid_Click);
+            this.grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_CellClick);
             // 
             // txtNome
             // 
@@ -144,6 +147,7 @@
             this.Name = "formularioCargo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cadastros de Cargos";
+            this.Load += new System.EventHandler(this.formularioCargo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

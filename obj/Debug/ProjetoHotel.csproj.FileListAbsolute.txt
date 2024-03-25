@@ -12,3 +12,8 @@ C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\obj\Debug\ProjetoHotel.
 C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\obj\Debug\ProjetoHotel.Cadastros.formularioFuncionarios.resources
 C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\obj\Debug\ProjetoHotel.Cadastros.formularioCargo.resources
 C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\obj\Debug\ProjetoHotel.Produtos.formularioProdutos.resources
+C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\bin\Debug\MySql.Data.dll
+C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\bin\Debug\Google.Protobuf.dll
+C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\bin\Debug\MySql.Data.xml
+C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\obj\Debug\ProjetoHotel.csproj.CopyComplete

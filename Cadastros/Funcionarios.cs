@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,29 @@ namespace ProjetoHotel.Cadastros
 {
     public partial class formularioFuncionarios : Form
     {
+        Conexao con = new Conexao();
+        string sql;
+        MySqlCommand cmd;
+        string id;
+
         public formularioFuncionarios()
         {
             InitializeComponent();
+        }
+
+        private void carregarComboBox()
+        {
+            con.abrirCon();
+            sql = "SELECT * FROM cargos ORDER BY cargo ASC";
+            cmd = new MySqlCommand(sql, con.con);
+            MySqlDataAdapter da = new MySqlDataAdapter();
+            da.SelectCommand = cmd;
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            cbCargo.DataSource = dt;
+            //CODIGO PARA MOSTRAR OS CARGOS DENTRO DA COMBOBOX
+            cbCargo.DisplayMember = "cargo";
+            con.fecharCon();
         }
 
         private void habilitarCampos() 
@@ -47,6 +68,7 @@ namespace ProjetoHotel.Cadastros
         private void formularioFuncionarios_Load(object sender, EventArgs e)
         {
             rbNome.Checked = true;
+            carregarComboBox();
         }
 
         private void rbNome_CheckedChanged(object sender, EventArgs e)
@@ -69,6 +91,12 @@ namespace ProjetoHotel.Cadastros
 
         private void botaoNovo_Click(object sender, EventArgs e)
         {
+            if(cbCargo.Text == "")
+            {
+                MessageBox.Show("Cadestre antes um cargo!");
+                Close();
+            }
+
             habilitarCampos();
             botaoSalvar.Enabled = true;
             botaoNovo.Enabled = false;
