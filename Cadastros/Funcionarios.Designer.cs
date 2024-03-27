@@ -67,6 +67,7 @@
             this.txtBuscarNome.Name = "txtBuscarNome";
             this.txtBuscarNome.Size = new System.Drawing.Size(100, 20);
             this.txtBuscarNome.TabIndex = 50;
+            this.txtBuscarNome.TextChanged += new System.EventHandler(this.txtBuscarNome_TextChanged);
             // 
             // txtNome
             // 
@@ -169,7 +170,7 @@
             this.grid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grid.Size = new System.Drawing.Size(500, 150);
             this.grid.TabIndex = 61;
-            this.grid.Click += new System.EventHandler(this.grid_Click);
+            this.grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_CellClick);
             // 
             // txtBuscarCpf
             // 
@@ -179,6 +180,7 @@
             this.txtBuscarCpf.Size = new System.Drawing.Size(100, 20);
             this.txtBuscarCpf.TabIndex = 62;
             this.txtBuscarCpf.Visible = false;
+            this.txtBuscarCpf.TextChanged += new System.EventHandler(this.txtBuscarCpf_TextChanged);
             // 
             // rbNome
             // 

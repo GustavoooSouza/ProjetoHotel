@@ -56,5 +56,11 @@ namespace ProjetoHotel
             Produtos.formularioProdutos formularioProdutos = new Produtos.formularioProdutos();
             formularioProdutos.Show();
         }
+
+        private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Cadastros.formularioUsuarios formularioUsuarios = new Cadastros.formularioUsuarios();
+            formularioUsuarios.Show();
+        }
     }
 }

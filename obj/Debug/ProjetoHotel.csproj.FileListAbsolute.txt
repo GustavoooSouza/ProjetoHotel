@@ -17,3 +17,4 @@ C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\bin\Debug\Google.Protob
 C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\bin\Debug\BouncyCastle.Crypto.dll
 C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\bin\Debug\MySql.Data.xml
 C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\obj\Debug\ProjetoHotel.csproj.CopyComplete
+C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\obj\Debug\ProjetoHotel.Cadastros.formularioUsuarios.resources
