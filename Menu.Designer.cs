@@ -73,10 +73,10 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.labelUsuario = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.labelCargo = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -125,46 +125,46 @@
             // funToolStripMenuItem
             // 
             this.funToolStripMenuItem.Name = "funToolStripMenuItem";
-            this.funToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.funToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.funToolStripMenuItem.Text = "Funcionários";
             this.funToolStripMenuItem.Click += new System.EventHandler(this.funToolStripMenuItem_Click);
             // 
             // hóspedesToolStripMenuItem
             // 
             this.hóspedesToolStripMenuItem.Name = "hóspedesToolStripMenuItem";
-            this.hóspedesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hóspedesToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.hóspedesToolStripMenuItem.Text = "Hóspedes";
             // 
             // quartosToolStripMenuItem
             // 
             this.quartosToolStripMenuItem.Name = "quartosToolStripMenuItem";
-            this.quartosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.quartosToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.quartosToolStripMenuItem.Text = "Quartos";
             // 
             // usuariosToolStripMenuItem
             // 
             this.usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
-            this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.usuariosToolStripMenuItem.Text = "Usuários";
             this.usuariosToolStripMenuItem.Click += new System.EventHandler(this.usuariosToolStripMenuItem_Click);
             // 
             // serviçosToolStripMenuItem
             // 
             this.serviçosToolStripMenuItem.Name = "serviçosToolStripMenuItem";
-            this.serviçosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.serviçosToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.serviçosToolStripMenuItem.Text = "Serviços";
             // 
             // cargoToolStripMenuItem
             // 
             this.cargoToolStripMenuItem.Name = "cargoToolStripMenuItem";
-            this.cargoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cargoToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.cargoToolStripMenuItem.Text = "Cargo";
             this.cargoToolStripMenuItem.Click += new System.EventHandler(this.cargoToolStripMenuItem_Click);
             // 
             // fornecedoresToolStripMenuItem
             // 
             this.fornecedoresToolStripMenuItem.Name = "fornecedoresToolStripMenuItem";
-            this.fornecedoresToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fornecedoresToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.fornecedoresToolStripMenuItem.Text = "Fornecedores";
             // 
             // MenuProdutos
@@ -419,10 +419,10 @@
             this.painelRight.Controls.Add(this.label12);
             this.painelRight.Controls.Add(this.label13);
             this.painelRight.Controls.Add(this.label9);
-            this.painelRight.Controls.Add(this.label8);
+            this.painelRight.Controls.Add(this.labelUsuario);
             this.painelRight.Controls.Add(this.label5);
             this.painelRight.Controls.Add(this.pictureBox2);
-            this.painelRight.Controls.Add(this.label6);
+            this.painelRight.Controls.Add(this.labelCargo);
             this.painelRight.Controls.Add(this.label7);
             this.painelRight.Controls.Add(this.label4);
             this.painelRight.Controls.Add(this.pictureBox1);
@@ -532,16 +532,16 @@
             this.label9.TabIndex = 10;
             this.label9.Text = "Nome :";
             // 
-            // label8
+            // labelUsuario
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label8.Location = new System.Drawing.Point(86, 228);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(105, 18);
-            this.label8.TabIndex = 9;
-            this.label8.Text = "Nome Usuario";
+            this.labelUsuario.AutoSize = true;
+            this.labelUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelUsuario.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.labelUsuario.Location = new System.Drawing.Point(86, 228);
+            this.labelUsuario.Name = "labelUsuario";
+            this.labelUsuario.Size = new System.Drawing.Size(105, 18);
+            this.labelUsuario.TabIndex = 9;
+            this.labelUsuario.Text = "Nome Usuario";
             // 
             // label5
             // 
@@ -564,16 +564,16 @@
             this.pictureBox2.TabIndex = 7;
             this.pictureBox2.TabStop = false;
             // 
-            // label6
+            // labelCargo
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label6.Location = new System.Drawing.Point(99, 271);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(80, 18);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "15/11/1996";
+            this.labelCargo.AutoSize = true;
+            this.labelCargo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCargo.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.labelCargo.Location = new System.Drawing.Point(99, 271);
+            this.labelCargo.Name = "labelCargo";
+            this.labelCargo.Size = new System.Drawing.Size(80, 18);
+            this.labelCargo.TabIndex = 6;
+            this.labelCargo.Text = "15/11/1996";
             // 
             // label7
             // 
@@ -712,9 +712,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label labelCargo;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label labelUsuario;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;

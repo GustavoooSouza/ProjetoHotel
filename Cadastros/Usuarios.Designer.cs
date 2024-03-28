@@ -60,6 +60,7 @@
             this.botaoExcluir.Size = new System.Drawing.Size(65, 65);
             this.botaoExcluir.TabIndex = 88;
             this.botaoExcluir.UseVisualStyleBackColor = true;
+            this.botaoExcluir.Click += new System.EventHandler(this.botaoExcluir_Click);
             // 
             // botaoEditar
             // 
@@ -74,6 +75,7 @@
             this.botaoEditar.Size = new System.Drawing.Size(65, 65);
             this.botaoEditar.TabIndex = 87;
             this.botaoEditar.UseVisualStyleBackColor = true;
+            this.botaoEditar.Click += new System.EventHandler(this.botaoEditar_Click);
             // 
             // botaoSalvar
             // 
@@ -117,6 +119,7 @@
             this.grid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grid.Size = new System.Drawing.Size(500, 150);
             this.grid.TabIndex = 81;
+            this.grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_CellClick);
             // 
             // cbCargo
             // 
@@ -159,6 +162,7 @@
             this.txtBuscarNome.Name = "txtBuscarNome";
             this.txtBuscarNome.Size = new System.Drawing.Size(100, 20);
             this.txtBuscarNome.TabIndex = 74;
+            this.txtBuscarNome.TextChanged += new System.EventHandler(this.txtBuscarNome_TextChanged);
             // 
             // label1
             // 

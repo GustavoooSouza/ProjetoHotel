@@ -17,6 +17,7 @@ namespace ProjetoHotel.Cadastros
         string sql;
         MySqlCommand cmd;
         string id;
+        string usuarioAntigo;
 
         //METODO PARA MUDAR NOMES A SEREM EXIBIDOS DENTRO DA GRID
         private void formatarDg()
@@ -150,15 +151,22 @@ namespace ProjetoHotel.Cadastros
             cmd.Parameters.AddWithValue("@cargo", cbCargo.Text);
 
             //VERIFICAR SE USUARIO EXISTE
-            con.abrirCon();
-            sql = "SELECT * FROM usuarios WHERE usuario = @usuario";
-            cmd = new MySqlCommand(sql, con.con);
+            MySqlCommand cmdVerificar;
+            string sqlVerificar;
+            sqlVerificar = "SELECT * FROM usuarios WHERE usuario = @usuario";
+            cmdVerificar = new MySqlCommand(sqlVerificar, con.con);
+            cmdVerificar.Parameters.AddWithValue("@usuario", txtUsuario.Text);
             MySqlDataAdapter da = new MySqlDataAdapter();
-            da.SelectCommand = cmd;
+            da.SelectCommand = cmdVerificar;
             DataTable dt = new DataTable();
             da.Fill(dt);
-            grid.DataSource = dt;
-            con.fecharCon();
+            if(dt.Rows.Count > 0)
+            {
+                MessageBox.Show("Este nome de usuario já existe!", "Usuario já cadastrado!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtUsuario.Text = "";
+                txtUsuario.Focus();
+                return;
+            }
 
             cmd.ExecuteNonQuery();
             con.fecharCon();
@@ -170,6 +178,111 @@ namespace ProjetoHotel.Cadastros
             limparCampos();
             desabilitarCampos();
             Listar();
+        }
+
+        private void botaoEditar_Click(object sender, EventArgs e)
+        {
+            if (txtNome.Text.ToString().Trim() == "")
+            {
+                MessageBox.Show("Preencha o campo Nome!", "Campo Vazio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtNome.Text = "";
+                txtNome.Focus();
+                return;
+            }
+
+            //CODIGO BOTAO EDITAR
+            con.abrirCon();
+            sql = "UPDATE usuarios SET nome = @nome, usuario = @usuario, senha = @senha, cargo = @cargo WHERE id = @id";
+            cmd = new MySqlCommand(sql, con.con);
+            cmd.Parameters.AddWithValue("@nome", txtNome.Text);
+            cmd.Parameters.AddWithValue("@usuario", txtUsuario.Text);
+            cmd.Parameters.AddWithValue("@senha", txtSenha.Text);
+            cmd.Parameters.AddWithValue("@cargo", cbCargo.Text);
+            cmd.Parameters.AddWithValue("@id", id);
+
+            //VERIFICAR SE USUARIO JÁ EXISTE
+            if (txtUsuario.Text != usuarioAntigo)
+            {
+                MySqlCommand cmdVerificar;
+                string sqlVerificar;
+                sqlVerificar = "SELECT * FROM usuarios WHERE usuario = @usuario";
+                cmdVerificar = new MySqlCommand(sqlVerificar, con.con);
+                cmdVerificar.Parameters.AddWithValue("@usuario", txtUsuario.Text);
+                MySqlDataAdapter da = new MySqlDataAdapter();
+                da.SelectCommand = cmdVerificar;
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    MessageBox.Show("Este Usuario já existe!", "Usuario já cadastrado!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    txtUsuario.Text = "";
+                    txtUsuario.Focus();
+                    return;
+                }
+            }
+
+            cmd.ExecuteNonQuery();
+            con.fecharCon();
+
+            MessageBox.Show("Registro editado com sucesso!", "Dados Salvos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            botaoNovo.Enabled = true;
+            botaoEditar.Enabled = false;
+            botaoExcluir.Enabled = false;
+            limparCampos();
+            desabilitarCampos();
+            Listar();
+        }
+
+        private void grid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            botaoEditar.Enabled = true;
+            botaoExcluir.Enabled = true;
+            botaoNovo.Enabled = false;
+            botaoSalvar.Enabled = false;
+            //PRECISA HABILITAR OS CAMPOS PARA EDIÇÂO
+            habilitarCampos();
+
+            //CODIGO PARA PEGAR O ID DA CELULA QUE DESEJAMOS EDITAR
+            id = grid.CurrentRow.Cells[0].Value.ToString();
+            txtNome.Text = grid.CurrentRow.Cells[1].Value.ToString();
+            txtUsuario.Text = grid.CurrentRow.Cells[2].Value.ToString();
+            txtSenha.Text = grid.CurrentRow.Cells[3].Value.ToString();
+            cbCargo.Text = grid.CurrentRow.Cells[4].Value.ToString();
+
+            //CODIGO PARA PASSAR OS DADOS ARMAZENADOS PARA A VARIAVEL cpfAntigo
+            usuarioAntigo = grid.CurrentRow.Cells[2].Value.ToString();
+        }
+
+        private void botaoExcluir_Click(object sender, EventArgs e)
+        {
+            var resultado = MessageBox.Show("Deseja realmente excluir o registro?!", "Excluir Registro", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (resultado == DialogResult.Yes)
+            {
+                //CODIGO BOTAO EXCLUIR
+                con.abrirCon();
+                sql = "DELETE FROM usuarios WHERE id = @id";
+                cmd = new MySqlCommand(sql, con.con);
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.ExecuteNonQuery();
+                con.fecharCon();
+
+                MessageBox.Show("Registro excluido com sucesso!", "Dados Excluidos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                botaoNovo.Enabled = true;
+                botaoEditar.Enabled = false;
+                botaoExcluir.Enabled = false;
+                txtNome.Text = "";
+                txtNome.Enabled = false;
+                Listar();
+            }
+            else
+            {
+
+            }
+        }
+
+        private void txtBuscarNome_TextChanged(object sender, EventArgs e)
+        {
+            buscarNome();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,8 @@ namespace ProjetoHotel
 {
     public partial class formularioLogin : Form
     {
+        Conexao con = new Conexao();
+
         public formularioLogin()
         {
             InitializeComponent();
@@ -67,10 +70,36 @@ namespace ProjetoHotel
             }
 
             //AQUI VAI O CODIGO PARA O LOGIN!
-
-            formularioMenu menu = new formularioMenu();
-            this.Hide();
-            menu.Show();
+            //VERIFICAR SE USUARIO JÁ EXISTE
+            con.abrirCon();
+            MySqlCommand cmdVerificar;
+            MySqlDataReader reader;
+            string sqlVerificar;
+            sqlVerificar = "SELECT * FROM usuarios WHERE usuario = @usuario and senha = @senha";
+            cmdVerificar = new MySqlCommand(sqlVerificar, con.con);
+            cmdVerificar.Parameters.AddWithValue("@usuario", txtUsuario.Text);
+            cmdVerificar.Parameters.AddWithValue("@senha", txtSenha.Text);
+            //CODIGO PARA PASSAR OS DADOS DA CONSULTA A CIMA PARA O READER
+            reader = cmdVerificar.ExecuteReader();
+            if (reader.HasRows)
+            {
+                //EXTRAINDO INFORMACOES DO READER
+                while (reader.Read())
+                {
+                    con.nomeUsuario = Convert.ToString(reader["nome"]);
+                    con.cargoUsuario = Convert.ToString(reader["cargo"]);
+                }
+                MessageBox.Show("Bem-vindo!!!" + con.nomeUsuario, "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                formularioMenu menu = new formularioMenu();
+                this.Hide();
+                menu.Show();
+            } else {
+                MessageBox.Show("Usuario ou Senha incorretos!!!", "Erro ao fazer Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtUsuario.Text = "";
+                txtUsuario.Focus();
+                txtSenha.Text = "";
+            }
+            con.fecharCon();
         }
 
         private void formularioLogin_Resize(object sender, EventArgs e)

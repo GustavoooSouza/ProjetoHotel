@@ -17,6 +17,8 @@ namespace ProjetoHotel.Cadastros
         string sql;
         MySqlCommand cmd;
         string id;
+        //VARIAVEL PARA SALVAR O CPF NA HORA DE EDITAR E PODER REALIZAR A VERIFICAO SEM ERROS
+        string cpfAntigo;
 
         public formularioFuncionarios()
         {
@@ -195,6 +197,25 @@ namespace ProjetoHotel.Cadastros
             cmd.Parameters.AddWithValue("@endereco", txtEndereco.Text);
             cmd.Parameters.AddWithValue("@telefone", txtTelefone.Text);
             cmd.Parameters.AddWithValue("@cargo", cbCargo.Text);
+
+            //VERIFICAR SE CPF EXISTE
+            MySqlCommand cmdVerificar;
+            string sqlVerificar;
+            sqlVerificar = "SELECT * FROM funcionarios WHERE cpf = @cpf";
+            cmdVerificar = new MySqlCommand(sqlVerificar, con.con);
+            cmdVerificar.Parameters.AddWithValue("@cpf", txtCpf.Text);
+            MySqlDataAdapter da = new MySqlDataAdapter();
+            da.SelectCommand = cmdVerificar;
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            if (dt.Rows.Count > 0)
+            {
+                MessageBox.Show("Este CPF já existe!", "CPF já cadastrado!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtCpf.Text = "";
+                txtCpf.Focus();
+                return;
+            }
+
             cmd.ExecuteNonQuery();
             con.fecharCon();
 
@@ -235,6 +256,28 @@ namespace ProjetoHotel.Cadastros
             cmd.Parameters.AddWithValue("@telefone", txtTelefone.Text);
             cmd.Parameters.AddWithValue("@cargo", cbCargo.Text);
             cmd.Parameters.AddWithValue("@id", id);
+
+            //VERIFICAR SE CPF EXISTE
+            if (txtCpf.Text != cpfAntigo)
+            {
+                MySqlCommand cmdVerificar;
+                string sqlVerificar;
+                sqlVerificar = "SELECT * FROM funcionarios WHERE cpf = @cpf";
+                cmdVerificar = new MySqlCommand(sqlVerificar, con.con);
+                cmdVerificar.Parameters.AddWithValue("@cpf", txtCpf.Text);
+                MySqlDataAdapter da = new MySqlDataAdapter();
+                da.SelectCommand = cmdVerificar;
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    MessageBox.Show("Este CPF já existe!", "CPF já cadastrado!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    txtCpf.Text = "";
+                    txtCpf.Focus();
+                    return;
+                }
+            }           
+
             cmd.ExecuteNonQuery();
             con.fecharCon();
 
@@ -290,6 +333,9 @@ namespace ProjetoHotel.Cadastros
             txtEndereco.Text = grid.CurrentRow.Cells[3].Value.ToString();
             txtTelefone.Text = grid.CurrentRow.Cells[4].Value.ToString();
             cbCargo.Text = grid.CurrentRow.Cells[5].Value.ToString();
+
+            //CODIGO PARA PASSAR OS DADOS ARMAZENADOS PARA A VARIAVEL cpfAntigo
+            cpfAntigo = grid.CurrentRow.Cells[2].Value.ToString();
         }
 
         private void txtBuscarNome_TextChanged(object sender, EventArgs e)

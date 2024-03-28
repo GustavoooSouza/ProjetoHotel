@@ -12,6 +12,8 @@ namespace ProjetoHotel
 {
     public partial class formularioMenu : Form
     {
+        Conexao con = new Conexao();
+
         public formularioMenu()
         {
             InitializeComponent();
@@ -31,6 +33,10 @@ namespace ProjetoHotel
         {
             painelTopo.BackColor = Color.FromArgb(230, 230, 230);
             painelRight.BackColor = Color.FromArgb(170, 170, 170);
+
+            labelUsuario.Text = con.nomeUsuario;
+            labelCargo.Text = con.cargoUsuario;
+
         }
 
         private void funToolStripMenuItem_Click(object sender, EventArgs e)
