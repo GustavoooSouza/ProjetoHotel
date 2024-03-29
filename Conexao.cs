@@ -38,9 +38,5 @@ namespace ProjetoHotel
                 throw ex;
             }
         }
-
-        //DECLARAO DE OUTRAS VARIAVEIS
-        public string nomeUsuario;
-        public string cargoUsuario;
     }
 }

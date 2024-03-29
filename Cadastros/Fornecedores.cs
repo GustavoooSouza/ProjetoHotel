@@ -9,16 +9,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ProjetoHotel.Produtos
+namespace ProjetoHotel.Cadastros
 {
-    public partial class formularioProdutos : Form
+    public partial class formularioFornecedores : Form
     {
         Conexao con = new Conexao();
         string sql;
         MySqlCommand cmd;
         string id;
 
-        public formularioProdutos()
+        public formularioFornecedores()
         {
             InitializeComponent();
         }
@@ -28,12 +28,8 @@ namespace ProjetoHotel.Produtos
             //Mudar nome das tabelas no grid
             grid.Columns[0].HeaderText = "ID";
             grid.Columns[1].HeaderText = "Nome";
-            grid.Columns[2].HeaderText = "Descrição";
-            grid.Columns[3].HeaderText = "Estoque";
-            grid.Columns[4].HeaderText = "Fornecedor";
-            grid.Columns[5].HeaderText = "Valor Venda";
-            grid.Columns[6].HeaderText = "Valor Compra";
-            grid.Columns[7].HeaderText = "DATA";
+            grid.Columns[2].HeaderText = "Telefone";
+            grid.Columns[3].HeaderText = "Endereço";
 
             //DEIXAR COLUNA SEM APARECER NO GRID
             grid.Columns[0].Visible = false;
@@ -43,7 +39,7 @@ namespace ProjetoHotel.Produtos
         private void Listar()
         {
             con.abrirCon();
-            sql = "SELECT * FROM produtos ORDER BY nome ASC";
+            sql = "SELECT * FROM fornecedores ORDER BY nome ASC";
             cmd = new MySqlCommand(sql, con.con);
             MySqlDataAdapter da = new MySqlDataAdapter();
             da.SelectCommand = cmd;
@@ -58,7 +54,7 @@ namespace ProjetoHotel.Produtos
         private void buscarNome()
         {
             con.abrirCon();
-            sql = "SELECT * FROM produtos WHERE nome LIKE @nome ORDER BY nome ASC";
+            sql = "SELECT * FROM fornecedores WHERE nome LIKE @nome ORDER BY nome ASC";
             cmd = new MySqlCommand(sql, con.con);
             cmd.Parameters.AddWithValue("@nome", txtBuscarNome.Text + "%");
             MySqlDataAdapter da = new MySqlDataAdapter();
@@ -71,60 +67,31 @@ namespace ProjetoHotel.Produtos
             formatarDg();
         }
 
-        private void carregarComboBox()
-        {
-            con.abrirCon();
-            sql = "SELECT * FROM fornecedores ORDER BY nome ASC";
-            cmd = new MySqlCommand(sql, con.con);
-            MySqlDataAdapter da = new MySqlDataAdapter();
-            da.SelectCommand = cmd;
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            cbFornecedor.DataSource = dt;
-            cbFornecedor.ValueMember = "id";
-            //CODIGO PARA MOSTRAR OS CARGOS DENTRO DA COMBOBOX
-            cbFornecedor.DisplayMember = "fornecedor";
-            con.fecharCon();
-        }
-
         private void habilitarCampos()
         {
             txtNome.Enabled = true;
-            txtDescricao.Enabled = true;
-            txtEstoque.Enabled = true;
-            cbFornecedor.Enabled = true;
-            txtValor.Enabled = true;
-            botaoImagen.Enabled = true;
+            txtTelefone.Enabled = true;
+            txtEndereco.Enabled = true;
             txtNome.Focus();
         }
 
         private void desabilitarCampos()
         {
             txtNome.Enabled = false;
-            txtDescricao.Enabled = false;
-            txtEstoque.Enabled = false;
-            cbFornecedor.Enabled = false;
-            txtValor.Enabled = false;
-            botaoImagen.Enabled = false;
+            txtTelefone.Enabled = false;
+            txtEndereco.Enabled = false;
         }
 
         private void limparCampos()
         {
             txtNome.Text = "";
-            txtDescricao.Text = "";
-            txtEstoque.Text = "";
-            txtValor.Text = "";
-            LimparFoto();
+            txtEndereco.Text = "";
+            txtTelefone.Text = "";
         }
 
-        private void LimparFoto()
+        private void formularioFornecedores_Load(object sender, EventArgs e)
         {
-            img.Image = Properties.Resources.sem_foto;
-        }
-
-        private void formularioProdutos_Load(object sender, EventArgs e)
-        {
-            LimparFoto();
+            Listar();
         }
 
         private void botaoNovo_Click(object sender, EventArgs e)
@@ -138,7 +105,8 @@ namespace ProjetoHotel.Produtos
 
         private void botaoSalvar_Click(object sender, EventArgs e)
         {
-            if (txtNome.Text.ToString().Trim() == "")
+            //TRIM = COMANDO PARA CONTAR ESPACOS COMO VAZIO
+            if(txtNome.Text.ToString().Trim() == "") 
             {
                 MessageBox.Show("Preencha o campo Nome!", "Campo Vazio", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 txtNome.Text = "";
@@ -146,27 +114,49 @@ namespace ProjetoHotel.Produtos
                 return;
             }
 
-            if (txtValor.Text.ToString().Trim() == "")
-            {
-                MessageBox.Show("Preencha o campo Valor!", "Campo Vazio", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                txtValor.Text = "";
-                txtValor.Focus();
-                return;
-            }
+            con.abrirCon();
+            sql = "INSERT INTO fornecedores (nome, telefone, endereco) VALUES (@nome, @telefone, @endereco)";
+            cmd = new MySqlCommand(sql, con.con);
+            cmd.Parameters.AddWithValue("@nome", txtNome.Text);
+            cmd.Parameters.AddWithValue("@telefone", txtTelefone.Text);
+            cmd.Parameters.AddWithValue("@endereco", txtEndereco.Text);
 
-            //CODIGO BOTAO SALVAR
 
-            MessageBox.Show("Novo produto cadastrado com sucesso!", "Dados Salvos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            cmd.ExecuteNonQuery();
+            con.fecharCon();
+
+            MessageBox.Show("Novo fornecedor cadastrado com sucesso!", "Dados Salvos", MessageBoxButtons.OK, MessageBoxIcon.Information);
             botaoNovo.Enabled = true;
             botaoSalvar.Enabled = false;
             limparCampos();
-            LimparFoto();
             desabilitarCampos();
+            Listar();
+        }
+
+        private void grid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            botaoEditar.Enabled = true;
+            botaoExcluir.Enabled = true;
+            botaoNovo.Enabled = false;
+            botaoSalvar.Enabled = false;
+            //PRECISA HABILITAR OS CAMPOS PARA EDIÇÂO
+            habilitarCampos();
+
+            //CODIGO PARA PEGAR O ID DA CELULA QUE DESEJAMOS EDITAR
+            id = grid.CurrentRow.Cells[0].Value.ToString();
+            txtNome.Text = grid.CurrentRow.Cells[1].Value.ToString();
+            txtTelefone.Text = grid.CurrentRow.Cells[2].Value.ToString();
+            txtEndereco.Text = grid.CurrentRow.Cells[3].Value.ToString();
+        }
+
+        private void txtBuscarNome_TextChanged(object sender, EventArgs e)
+        {
+            buscarNome();
         }
 
         private void botaoEditar_Click(object sender, EventArgs e)
         {
-            if (txtNome.Text.ToString().Trim() == "")
+            if(txtNome.Text.ToString().Trim() == "") 
             {
                 MessageBox.Show("Preencha o campo Nome!", "Campo Vazio", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 txtNome.Text = "";
@@ -174,23 +164,24 @@ namespace ProjetoHotel.Produtos
                 return;
             }
 
-            if (txtValor.Text.ToString().Trim() == "")
-            {
-                MessageBox.Show("Preencha o campo Valor!", "Campo Vazio", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                txtValor.Text = "";
-                txtValor.Focus();
-                return;
-            }
+            con.abrirCon();
+            sql = "UPDATE fornecedores SET nome = @nome, telefone = @telefone, endereco = @endereco WHERE id = @id";
+            cmd = new MySqlCommand(sql, con.con);
+            cmd.Parameters.AddWithValue("@nome", txtNome.Text);
+            cmd.Parameters.AddWithValue("@telefone", txtTelefone.Text);
+            cmd.Parameters.AddWithValue("@endereco", txtEndereco.Text);
+            cmd.Parameters.AddWithValue("@id", id);
 
-            //CODIGO BOTAO EDITAR
+            cmd.ExecuteNonQuery();
+            con.fecharCon();
 
             MessageBox.Show("Registro editado com sucesso!", "Dados Salvos", MessageBoxButtons.OK, MessageBoxIcon.Information);
             botaoNovo.Enabled = true;
             botaoEditar.Enabled = false;
             botaoExcluir.Enabled = false;
             limparCampos();
-            LimparFoto();
             desabilitarCampos();
+            Listar();
         }
 
         private void botaoExcluir_Click(object sender, EventArgs e)
@@ -199,28 +190,24 @@ namespace ProjetoHotel.Produtos
             if (resultado == DialogResult.Yes)
             {
                 //CODIGO BOTAO EXCLUIR
+                con.abrirCon();
+                sql = "DELETE FROM fornecedores WHERE id = @id";
+                cmd = new MySqlCommand(sql, con.con);
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.ExecuteNonQuery();
+                con.fecharCon();
 
                 MessageBox.Show("Registro excluido com sucesso!", "Dados Excluidos", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 botaoNovo.Enabled = true;
                 botaoEditar.Enabled = false;
                 botaoExcluir.Enabled = false;
-                txtNome.Text = "";
-                txtNome.Enabled = false;
+                limparCampos();
+                desabilitarCampos();
+                Listar();
             }
             else
             {
 
-            }
-        }
-
-        private void botaoImagen_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "Arquivos de Imagens (*.jpg;*.png)|*.jpg;*.png|Todos os Arquivos (*.*)|*.*";
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                string foto = dialog.FileName.ToString();
-                img.ImageLocation = foto;
             }
         }
     }

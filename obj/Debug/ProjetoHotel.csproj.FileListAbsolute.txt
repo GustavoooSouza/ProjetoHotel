@@ -18,3 +18,4 @@ C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\bin\Debug\BouncyCastle.
 C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\bin\Debug\MySql.Data.xml
 C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\obj\Debug\ProjetoHotel.csproj.CopyComplete
 C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\obj\Debug\ProjetoHotel.Cadastros.formularioUsuarios.resources
+C:\Users\Usuário\source\repos\ProjetoHotel\ProjetoHotel\obj\Debug\ProjetoHotel.Cadastros.formularioFornecedores.resources

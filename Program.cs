@@ -8,6 +8,9 @@ namespace ProjetoHotel
 {
     internal static class Program
     {
+        //DECLARAO DE OUTRAS VARIAVEIS
+        public static string nomeUsuario;
+        public static string cargoUsuario;
         /// <summary>
         /// Ponto de entrada principal para o aplicativo.
         /// </summary>

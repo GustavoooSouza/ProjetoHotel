@@ -86,10 +86,10 @@ namespace ProjetoHotel
                 //EXTRAINDO INFORMACOES DO READER
                 while (reader.Read())
                 {
-                    con.nomeUsuario = Convert.ToString(reader["nome"]);
-                    con.cargoUsuario = Convert.ToString(reader["cargo"]);
+                    Program.nomeUsuario = Convert.ToString(reader["nome"]);
+                    Program.cargoUsuario = Convert.ToString(reader["cargo"]);
                 }
-                MessageBox.Show("Bem-vindo!!!" + con.nomeUsuario, "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Bem-vindo!!!" + Program.nomeUsuario, "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 formularioMenu menu = new formularioMenu();
                 this.Hide();
                 menu.Show();

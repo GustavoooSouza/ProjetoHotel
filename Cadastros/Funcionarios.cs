@@ -307,8 +307,8 @@ namespace ProjetoHotel.Cadastros
                 botaoNovo.Enabled = true;
                 botaoEditar.Enabled = false;
                 botaoExcluir.Enabled = false;
-                txtNome.Text = "";
-                txtNome.Enabled = false;
+                limparCampos();
+                desabilitarCampos();
                 Listar();
             }
             else
