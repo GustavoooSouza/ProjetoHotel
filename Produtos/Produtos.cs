@@ -34,16 +34,20 @@ namespace ProjetoHotel.Produtos
             grid.Columns[5].HeaderText = "Valor Venda";
             grid.Columns[6].HeaderText = "Valor Compra";
             grid.Columns[7].HeaderText = "DATA";
+            grid.Columns[8].HeaderText = "Imagem";
+            grid.Columns[9].HeaderText = "ID Fornecedor";
 
             //DEIXAR COLUNA SEM APARECER NO GRID
             grid.Columns[0].Visible = false;
+            grid.Columns[8].Visible = false;
+            grid.Columns[9].Visible = false;
         }
 
         //METODO PARA LISTAR NA GRID OS DADOS
         private void Listar()
         {
             con.abrirCon();
-            sql = "SELECT * FROM produtos ORDER BY nome ASC";
+            sql = "SELECT p.id, p.nome, p.descricao, p.estoque, f.nome, p.valorVenda, p.valorCompra, p.data, p.imagem, p.fornecedor FROM produtos as p INNER JOIN fornecedores as f ON p.fornecedor = f.id ORDER BY p.nome ASC";
             cmd = new MySqlCommand(sql, con.con);
             MySqlDataAdapter da = new MySqlDataAdapter();
             da.SelectCommand = cmd;
@@ -83,7 +87,7 @@ namespace ProjetoHotel.Produtos
             cbFornecedor.DataSource = dt;
             cbFornecedor.ValueMember = "id";
             //CODIGO PARA MOSTRAR OS CARGOS DENTRO DA COMBOBOX
-            cbFornecedor.DisplayMember = "fornecedor";
+            cbFornecedor.DisplayMember = "nome";
             con.fecharCon();
         }
 
@@ -91,7 +95,7 @@ namespace ProjetoHotel.Produtos
         {
             txtNome.Enabled = true;
             txtDescricao.Enabled = true;
-            txtEstoque.Enabled = true;
+            //txtEstoque.Enabled = true;
             cbFornecedor.Enabled = true;
             txtValor.Enabled = true;
             botaoImagen.Enabled = true;
@@ -125,10 +129,18 @@ namespace ProjetoHotel.Produtos
         private void formularioProdutos_Load(object sender, EventArgs e)
         {
             LimparFoto();
+            carregarComboBox();
+            Listar();
         }
 
         private void botaoNovo_Click(object sender, EventArgs e)
         {
+            if (cbFornecedor.Text == "")
+            {
+                MessageBox.Show("Cadestre antes um fornecedor!");
+                Close();
+            }
+
             habilitarCampos();
             botaoSalvar.Enabled = true;
             botaoNovo.Enabled = false;
@@ -155,6 +167,16 @@ namespace ProjetoHotel.Produtos
             }
 
             //CODIGO BOTAO SALVAR
+            con.abrirCon();
+            sql = "INSERT INTO produtos (nome, descricao, fornecedor, valorVenda, data) VALUES (@nome, @descricao, @fornecedor, @valorVenda, curDate())";
+            cmd = new MySqlCommand(sql, con.con);
+            cmd.Parameters.AddWithValue("@nome", txtNome.Text);
+            cmd.Parameters.AddWithValue("@descricao", txtDescricao.Text);
+            cmd.Parameters.AddWithValue("@fornecedor", cbFornecedor.SelectedValue);
+            cmd.Parameters.AddWithValue("@valorVenda", txtValor.Text);
+            
+            cmd.ExecuteNonQuery();
+            con.fecharCon();
 
             MessageBox.Show("Novo produto cadastrado com sucesso!", "Dados Salvos", MessageBoxButtons.OK, MessageBoxIcon.Information);
             botaoNovo.Enabled = true;
@@ -162,6 +184,7 @@ namespace ProjetoHotel.Produtos
             limparCampos();
             LimparFoto();
             desabilitarCampos();
+            Listar();
         }
 
         private void botaoEditar_Click(object sender, EventArgs e)
@@ -191,6 +214,7 @@ namespace ProjetoHotel.Produtos
             limparCampos();
             LimparFoto();
             desabilitarCampos();
+            Listar();
         }
 
         private void botaoExcluir_Click(object sender, EventArgs e)
@@ -206,6 +230,8 @@ namespace ProjetoHotel.Produtos
                 botaoExcluir.Enabled = false;
                 txtNome.Text = "";
                 txtNome.Enabled = false;
+
+                Listar();
             }
             else
             {
@@ -222,6 +248,29 @@ namespace ProjetoHotel.Produtos
                 string foto = dialog.FileName.ToString();
                 img.ImageLocation = foto;
             }
+        }
+
+        private void txtBuscarNome_TextChanged(object sender, EventArgs e)
+        {
+            buscarNome();
+        }
+
+        private void grid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            botaoEditar.Enabled = true;
+            botaoExcluir.Enabled = true;
+            botaoNovo.Enabled = false;
+            botaoSalvar.Enabled = false;
+            //PRECISA HABILITAR OS CAMPOS PARA EDIÇÂO
+            habilitarCampos();
+
+            //CODIGO PARA PEGAR O ID DA CELULA QUE DESEJAMOS EDITAR
+            id = grid.CurrentRow.Cells[0].Value.ToString();
+            txtNome.Text = grid.CurrentRow.Cells[1].Value.ToString();
+            txtDescricao.Text = grid.CurrentRow.Cells[2].Value.ToString();
+            txtEstoque.Text = grid.CurrentRow.Cells[3].Value.ToString();
+            cbFornecedor.Text = grid.CurrentRow.Cells[4].Value.ToString();
+            txtValor.Text = grid.CurrentRow.Cells[5].Value.ToString();
         }
     }
 }

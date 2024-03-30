@@ -121,6 +121,7 @@
             this.grid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grid.Size = new System.Drawing.Size(636, 150);
             this.grid.TabIndex = 81;
+            this.grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_CellClick);
             // 
             // cbFornecedor
             // 
@@ -198,6 +199,7 @@
             this.txtBuscarNome.Name = "txtBuscarNome";
             this.txtBuscarNome.Size = new System.Drawing.Size(100, 20);
             this.txtBuscarNome.TabIndex = 74;
+            this.txtBuscarNome.TextChanged += new System.EventHandler(this.txtBuscarNome_TextChanged);
             // 
             // label1
             // 
